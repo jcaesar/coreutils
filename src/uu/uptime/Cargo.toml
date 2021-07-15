@@ -15,7 +15,7 @@ edition = "2018"
 path = "src/uptime.rs"
 
 [dependencies]
-chrono = "0.4"
+chrono = { git = "https://github.com/jcaesar/chrono", branch = "wasm32-wasmer" }
 clap = { version = "2.33", features = ["wrap_help"] }
 uucore = { version=">=0.0.9", package="uucore", path="../../uucore", features=["libc", "utmpx"] }
 uucore_procs = { version=">=0.0.6", package="uucore_procs", path="../../uucore_procs" }

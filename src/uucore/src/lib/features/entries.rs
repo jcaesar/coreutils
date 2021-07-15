@@ -37,7 +37,9 @@
 #[cfg(any(target_os = "freebsd", target_vendor = "apple"))]
 use libc::time_t;
 use libc::{c_char, c_int, gid_t, uid_t};
-use libc::{getgrgid, getgrnam, getgroups, getpwnam, getpwuid, group, passwd};
+use libc::{getgroups, getpwnam, getpwuid, group, passwd};
+#[cfg(not(target_os = "emscripten"))]
+use libc::{getgrgid, getgrnam};
 
 use std::borrow::Cow;
 use std::ffi::{CStr, CString};
@@ -318,27 +320,37 @@ macro_rules! f {
     };
 }
 
-f!(getpwnam, getpwuid, uid_t, Passwd);
-f!(getgrnam, getgrgid, gid_t, Group);
+cfg_if::cfg_if! {
+	if #[cfg(not(any(target_os = "emscripten", target_os = "wasi")))] {
+		f!(getpwnam, getpwuid, uid_t, Passwd);
+		f!(getgrnam, getgrgid, gid_t, Group);
 
-#[inline]
-pub fn uid2usr(id: uid_t) -> IOResult<String> {
-    Passwd::locate(id).map(|p| p.name().into_owned())
-}
+		#[inline]
+		pub fn uid2usr(id: uid_t) -> IOResult<String> {
+			Passwd::locate(id).map(|p| p.name().into_owned())
+		}
 
-#[inline]
-pub fn gid2grp(id: gid_t) -> IOResult<String> {
-    Group::locate(id).map(|p| p.name().into_owned())
-}
+		#[inline]
+		pub fn gid2grp(id: gid_t) -> IOResult<String> {
+			Group::locate(id).map(|p| p.name().into_owned())
+		}
 
-#[inline]
-pub fn usr2uid(name: &str) -> IOResult<uid_t> {
-    Passwd::locate(name).map(|p| p.uid())
-}
+		#[inline]
+		pub fn usr2uid(name: &str) -> IOResult<uid_t> {
+			Passwd::locate(name).map(|p| p.uid())
+		}
 
-#[inline]
-pub fn grp2gid(name: &str) -> IOResult<gid_t> {
-    Group::locate(name).map(|p| p.gid())
+		#[inline]
+		pub fn grp2gid(name: &str) -> IOResult<gid_t> {
+			Group::locate(name).map(|p| p.gid())
+		}
+	} else {
+		fn not_supported<T>() -> IOResult<T> { Err(IOError::new(ErrorKind::Other, "Not available on emscripten".to_string())) } // TODO: Switch to ErrorKind::Unsupported
+		pub fn uid2usr(_id: uid_t) -> IOResult<String> { not_supported() }
+		pub fn gid2grp(_id: gid_t) -> IOResult<String> { not_supported() }
+		pub fn usr2uid(_name: &str) -> IOResult<uid_t> { not_supported() }
+		pub fn grp2gid(_name: &str) -> IOResult<gid_t> { not_supported() }
+	}
 }
 
 #[cfg(test)]
