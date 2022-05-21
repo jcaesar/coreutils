@@ -104,15 +104,9 @@ feat=(
     who
 )
 
-feat=(
-	rm
-	ln
-	sync
-	uname
-)
-
 mkdir -p boop
 for f in ${feat[@]}; do
+	test -e boop/$f && continue || true
 	"$(dirname "$0")"/waskid.sh "$f" || continue
 	cp "$(dirname "$0")"/wasm-target/wasm32-unknown-emscripten/release/coreutils.wasm boop/$f
 	chmod a+x boop/$f
