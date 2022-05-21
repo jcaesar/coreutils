@@ -2,6 +2,8 @@
 
 set -e
 
+RWD="$(dirname "$0")"
+
 echo '
 FROM debian:bullseye
 RUN apt-get update && \
@@ -132,10 +134,12 @@ feat=(
 
 echo "Feat: ${#feat[@]}"
 
+mkdir -p "$RWD"/wasm-{target,cache}
+
 exec docker run --rm -ti \
-	-v $PWD:/home/rust/src \
-	-v $PWD/wasm-target:/home/rust/src/target \
-	-v $PWD/wasm-cache:/home/rust/.cargo/registry \
+	-v $RWD:/home/rust/src \
+	-v $RWD/wasm-target:/home/rust/src/target \
+	-v $RWD/wasm-cache:/home/rust/.cargo/registry \
 	rust-wasi-builder bash -c '
 		source ~/emsdk/emsdk_env.sh;
 		sudo chown rust:rust target ~/.cargo/registry \

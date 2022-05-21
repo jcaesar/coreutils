@@ -159,7 +159,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 [[package]]
 name = "chrono"
 version = "0.4.19"
-source = "git+https://github.com/jcaesar/chrono?branch=wasm32-wasmer#55638002012630ec2ac6ea1ad5f7e093ddd85a74"
+source = "git+https://github.com/chronotope/chrono#7097f933eb16d4fa5bb94b2a44e7d69c62af755d"
 dependencies = [
  "libc",
  "num-integer",
