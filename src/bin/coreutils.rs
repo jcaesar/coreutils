@@ -127,7 +127,7 @@ fn gen_completions<T: uucore::Args>(
     util_map: UtilityMap<T>,
 ) -> ! {
     let all_utilities: Vec<_> = std::iter::once("coreutils")
-        .chain(util_map.keys().copied())
+        .chain(util_map.keys().map(Clone::clone))
         .collect();
 
     let matches = App::new("completion")

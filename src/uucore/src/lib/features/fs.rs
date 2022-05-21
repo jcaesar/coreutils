@@ -201,14 +201,15 @@ pub fn canonicalize<P: AsRef<Path>>(original: P, can_mode: CanonicalizeMode) -> 
         }
 
         match resolve(&result) {
-            Err(e) if can_mode == CanonicalizeMode::Existing => {
-                return Err(e);
+            Err(e) => {
+                if can_mode == CanonicalizeMode::Existing {
+                    return Err(e);
+                }
             }
             Ok(path) => {
                 result.pop();
                 result.push(path);
             }
-            Err(_) => (),
         }
     }
     Ok(result)

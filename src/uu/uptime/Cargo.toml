@@ -16,7 +16,7 @@ path = "src/uptime.rs"
 
 [dependencies]
 chrono = { git = "https://github.com/chronotope/chrono" }
-clap = { version = "2.33", features = ["wrap_help"] }
+clap = { version = "2.32", features = ["wrap_help"] }
 uucore = { version=">=0.0.9", package="uucore", path="../../uucore", features=["libc", "utmpx"] }
 uucore_procs = { version=">=0.0.6", package="uucore_procs", path="../../uucore_procs" }
 

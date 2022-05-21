@@ -419,7 +419,7 @@ fn prompt(msg: &str) -> bool {
     let mut stdin = stdin.lock();
 
     match stdin.read_until(b'\n', &mut buf) {
-        Ok(x) if x > 0 => matches!(buf[0], b'y' | b'Y'),
+        Ok(x) if x > 0 => match buf[0] { b'y' | b'Y' => true, _ => false },
         _ => false,
     }
 }

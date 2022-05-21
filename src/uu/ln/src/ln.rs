@@ -315,7 +315,7 @@ fn link_files_in_dir(files: &[PathBuf], target_dir: &Path, settings: &Settings) 
     let mut all_successful = true;
     for srcpath in files.iter() {
         let targetpath =
-            if settings.no_dereference && matches!(settings.overwrite, OverwriteMode::Force) {
+            if settings.no_dereference && settings.overwrite == OverwriteMode::Force {
                 // In that case, we don't want to do link resolution
                 // We need to clean the target
                 if is_symlink(target_dir) {

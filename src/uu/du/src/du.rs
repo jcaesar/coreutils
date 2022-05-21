@@ -444,10 +444,10 @@ impl Error for DuError {}
 impl UCustomError for DuError {
     fn code(&self) -> i32 {
         match self {
-            Self::InvalidMaxDepthArg(_) => 1,
-            Self::SummarizeDepthConflict(_) => 1,
-            Self::InvalidTimeStyleArg(_) => 1,
-            Self::InvalidTimeArg(_) => 1,
+            DuError::InvalidMaxDepthArg(_) => 1,
+            DuError::SummarizeDepthConflict(_) => 1,
+            DuError::InvalidTimeStyleArg(_) => 1,
+            DuError::InvalidTimeArg(_) => 1,
         }
     }
 }

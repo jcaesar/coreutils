@@ -15,7 +15,7 @@ edition = "2018"
 path = "src/seq.rs"
 
 [dependencies]
-clap = { version = "2.33", features = ["wrap_help"] }
+clap = { version = "2.32", features = ["wrap_help"] }
 num-bigint = "0.4.0"
 num-traits = "0.2.14"
 uucore = { version=">=0.0.9", package="uucore", path="../../uucore" }

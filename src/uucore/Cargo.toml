@@ -16,7 +16,7 @@ edition = "2018"
 path="src/lib/lib.rs"
 
 [dependencies]
-dns-lookup = { git = "https://github.com/jcaesar/dns-lookup.git", branch = "wat" }
+dns-lookup = { git = "https://github.com/jcaesar/dns-lookup.git", rev = "b15efde191feeec457250b4ad8af2fde67bfc288" }
 dunce = "1.0.0"
 getopts = "<= 0.2.21"
 wild = "2.0.4"

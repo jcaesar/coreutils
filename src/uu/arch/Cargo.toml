@@ -16,7 +16,7 @@ path = "src/arch.rs"
 
 [dependencies]
 platform-info = "0.1"
-clap = { version = "2.33", features = ["wrap_help"] }
+clap = { version = "2.32", features = ["wrap_help"] }
 uucore = { version=">=0.0.9", package="uucore", path="../../uucore" }
 uucore_procs = { version=">=0.0.6", package="uucore_procs", path="../../uucore_procs" }
 

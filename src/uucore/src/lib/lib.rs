@@ -92,15 +92,15 @@ pub enum ConversionResult {
 impl ConversionResult {
     pub fn accept_any(self) -> Vec<String> {
         match self {
-            Self::Complete(result) => result,
-            Self::Lossy(result) => result,
+            ConversionResult::Complete(result) => result,
+            ConversionResult::Lossy(result) => result,
         }
     }
 
     pub fn expect_lossy(self, msg: &str) -> Vec<String> {
         match self {
-            Self::Lossy(result) => result,
-            Self::Complete(_) => {
+            ConversionResult::Lossy(result) => result,
+            ConversionResult::Complete(_) => {
                 panic!("{}", msg);
             }
         }
@@ -108,8 +108,8 @@ impl ConversionResult {
 
     pub fn expect_complete(self, msg: &str) -> Vec<String> {
         match self {
-            Self::Complete(result) => result,
-            Self::Lossy(_) => {
+            ConversionResult::Complete(result) => result,
+            ConversionResult::Lossy(_) => {
                 panic!("{}", msg);
             }
         }

@@ -48,6 +48,8 @@ const HOST_OS: &str = "Darwin";
 const HOST_OS: &str = "Fuchsia";
 #[cfg(target_os = "redox")]
 const HOST_OS: &str = "Redox";
+#[cfg(target_os = "emscripten")]
+const HOST_OS: &str = "Emscripten";
 
 pub fn uumain(args: impl uucore::Args) -> i32 {
     let usage = format!("{} [OPTION]...", executable!());

@@ -1251,7 +1251,7 @@ fn copy_helper(source: &Path, dest: &Path, options: &Options) -> CopyResult<()> 
             .to_string()
             .into());
         #[cfg(any(target_os = "linux", target_os = "macos"))]
-        if is_symlink {
+        { if is_symlink {
             assert!(options.dereference);
             let real_path = std::fs::read_link(source)?;
 
@@ -1264,7 +1264,7 @@ fn copy_helper(source: &Path, dest: &Path, options: &Options) -> CopyResult<()> 
             copy_on_write_macos(source, dest, options.reflink_mode)?;
             #[cfg(target_os = "linux")]
             copy_on_write_linux(source, dest, options.reflink_mode)?;
-        }
+        } }
     } else {
         fs::copy(source, dest).context(&*context_for(source, dest))?;
     }
